@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from .. import env
-from ..literals import (SECRET_KEY, DEBUG, PRODUCTION, DEFAULT_FILE_STORAGE, API_VERSION, CORS_ALLOWED_ORIGINS)
+from ..literals import (SECRET_KEY, DEBUG, PRODUCTION, DEFAULT_FILE_STORAGE, API_VERSION, CORS_ALLOWED_ORIGINS, DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS, DJANGO_PASSWORD_RESET_PAGE)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -223,3 +223,9 @@ SWAGGER_SETTINGS = {
         "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
     }
 }
+
+PASSWORD_RESET_TOKEN_EXPIRATION_SECS= env.int(
+    "DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS", DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS
+)
+
+PASSWORD_RESET_PAGE= env.str("DJANGO_PASSWORD_RESET_PAGE", DJANGO_PASSWORD_RESET_PAGE)
