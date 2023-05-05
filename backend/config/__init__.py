@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+from .celery import app as celery_app
 
 import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,3 +15,5 @@ env_dir = os.path.join(BASE_DIR, "envs", ".env")
 env = environ.Env()
 if os.path.exists(env_dir):
     environ.Env.read_env(env_dir)
+
+__all__ = ('celery_app',)
