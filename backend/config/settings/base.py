@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from .. import env
-from ..literals import (SECRET_KEY, DEBUG, PRODUCTION, DEFAULT_FILE_STORAGE, API_VERSION, CORS_ALLOWED_ORIGINS, DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS, DJANGO_PASSWORD_RESET_PAGE, CELERY_TIMEZONE, CELERY_BACKEND, CELERY_BROKER)
+from ..literals import (SECRET_KEY, DEBUG, PRODUCTION, DEFAULT_FILE_STORAGE, API_VERSION, CORS_ALLOWED_ORIGINS, DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS, DJANGO_PASSWORD_RESET_PAGE, CELERY_TIMEZONE, CELERY_BACKEND, CELERY_BROKER, DJANGO_DEFAULT_FROM_EMAIL)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -207,6 +207,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FROM_EMAIL = env.str("DJANGO_DEFAULT_FROM_EMAIL", DJANGO_DEFAULT_FROM_EMAIL)
 
 # ___________________cloudinary storage________________
 CLOUDINARY_STORAGE = {
