@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from .. import env
-from ..literals import (SECRET_KEY, DEBUG, PRODUCTION, DEFAULT_FILE_STORAGE, API_VERSION, CORS_ALLOWED_ORIGINS, DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS, DJANGO_PASSWORD_RESET_PAGE, CELERY_TIMEZONE, CELERY_BACKEND, CELERY_BROKER, DJANGO_DEFAULT_FROM_EMAIL)
+from ..literals import (SECRET_KEY, DEBUG, PRODUCTION, DEFAULT_FILE_STORAGE, API_VERSION, CORS_ALLOWED_ORIGINS, DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS, DJANGO_PASSWORD_RESET_PAGE, CELERY_TIMEZONE, CELERY_BACKEND, CELERY_BROKER, DJANGO_DEFAULT_FROM_EMAIL, EMAIL_HOST_PASSWORD, EMAIL_HOST)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -207,7 +207,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DEFAULT_FROM_EMAIL = env.str("DJANGO_DEFAULT_FROM_EMAIL", DJANGO_DEFAULT_FROM_EMAIL)
 
 # ___________________cloudinary storage________________
 CLOUDINARY_STORAGE = {
@@ -218,13 +217,14 @@ CLOUDINARY_STORAGE = {
 
 DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", DEFAULT_FILE_STORAGE)
 
-# _______________________Swagger _________________________
+# _______________________Swagger_________________________
 SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {
         "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
     }
 }
 
+# ________________________Password reset__________________
 PASSWORD_RESET_TOKEN_EXPIRATION_SECS= env.int(
     "DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS", DJANGO_PASSWORD_RESET_TOKEN_EXPIRATION_SECS
 )
@@ -232,9 +232,17 @@ PASSWORD_RESET_TOKEN_EXPIRATION_SECS= env.int(
 PASSWORD_RESET_PAGE= env.str("DJANGO_PASSWORD_RESET_PAGE", DJANGO_PASSWORD_RESET_PAGE)
 
 # ________________________Celery___________________________
-
 CELERY_BROKER = env.str("CELERY_BROKER", CELERY_BROKER)
 CELERY_BROKER_URL = env.str("CELERY_BROKER", CELERY_BROKER)
 CELERY_BACKEND = env.str("CELERY_BACKEND", CELERY_BACKEND)
 CELERY_BACKEND_URL = env.str("CELERY_BACKEND", CELERY_BACKEND)
 CELERY_TIMEZONE = env.str("CELERY_TIMEZONE", CELERY_TIMEZONE)
+
+# _________________________Email___________________________
+DEFAULT_FROM_EMAIL = env.str("DJANGO_DEFAULT_FROM_EMAIL", DJANGO_DEFAULT_FROM_EMAIL)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env.str("EMAIL_HOST", EMAIL_HOST)
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL 
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", EMAIL_HOST_PASSWORD)
