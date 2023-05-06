@@ -41,7 +41,8 @@ class AuthViewSet(viewsets.ModelViewSet):
 
     @decorators.action(detail=False, methods=["post"])
     def initiate_reset_password_email(self, request, *args, **kwargs):
-        pass
+        email= request.data.get("email")
+        
 
     @decorators.action(detail=False, methods=["post"])
     def finalize_reset_password_email(self, request, *args, **kwargs):
