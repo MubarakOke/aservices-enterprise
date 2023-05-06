@@ -1,4 +1,4 @@
-from apps.utils.exceptions import QuerySetException
+from apps.utils.exceptions.common import QuerySetException
 
 class Utils:
     @staticmethod
