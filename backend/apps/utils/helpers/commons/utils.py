@@ -1,5 +1,4 @@
-
-
+from apps.utils.exceptions import QuerySetException
 
 class Utils:
     @staticmethod
@@ -13,7 +12,7 @@ class Utils:
         try:
             queryset.get(*args, **kwargs)    
         except queryset.model.DoesNotExist:
-            raise ValueError(f"No {queryset.model._meta.object_name} matches the given query") 
+            raise QuerySetException(["Queryset error"], f"No {queryset.model._meta.object_name} matches the given query") 
 
     @staticmethod
     def _get_queryset(class_):
