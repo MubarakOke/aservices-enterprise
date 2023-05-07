@@ -1,3 +1,4 @@
+from rest_framework import response
 from apps.utils.exceptions.common import QuerySetException
 
 class Utils:
@@ -20,3 +21,19 @@ class Utils:
         if hasattr(class_, "_default_manager"):
             return class_._default_manager.all()
         return class_
+    
+    @staticmethod
+    def success_response(data, http_status):
+        return response.Response(
+            status=http_status, 
+            data=data)
+    
+    @staticmethod
+    def error_response(message, errors, http_status):
+        return response.Response(
+            status=http_status,
+            data={
+                "errors": errors,
+                "message": message,
+            },
+        )
